@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: influxdb
+  template:
+    metadata:
+      labels:
+        component: influxdb
+    spec:
+      containers:
+        - env:
+            - name: INFLUXDB_ADMIN_PASSWORD
+              value: admin
+            - name: INFLUXDB_ADMIN_USER
+              value: admin
+            - name: INFLUXDB_DB
+              value: influx_db
+          image: influxdb:1.8.10
+          name: influxdb
+          volumeMounts:
+            - mountPath: /var/lib/influxdb
+              name: data-influx
+      restartPolicy: Always
+      volumes:
+        - name: data-influx
+          emptyDir: {}

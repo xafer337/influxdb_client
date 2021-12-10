@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: client
+  template:
+    metadata:
+      labels:
+        component: client
+    spec:
+      containers:
+        - image: xafer337/influx_client:v1.0.0
+          name: client
+          tty: true
+          volumeMounts:
+            - mountPath: /tmp/influx_comentarios/
+              name: client-vol
+      restartPolicy: Always
+      volumes:
+        - name: client-vol
+          emptyDir: {}
