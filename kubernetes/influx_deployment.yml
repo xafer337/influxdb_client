@@ -28,4 +28,5 @@ spec:
       restartPolicy: Always
       volumes:
         - name: data-influx
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: data-influx-claim
