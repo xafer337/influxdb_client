@@ -1,0 +1,21 @@
+version: '3'
+services:
+  influxDB:
+    image: influxdb:1.8.10
+    container_name: influxDB
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+      - INFLUXDB_DB=influx_db
+    volumes:
+      - data_influx:/var/lib/influxdb
+
+  client:
+    image: xafer337/influx_client:v1.0.0
+    container_name: client
+    tty: true
+    volumes:
+      - /tmp/influx_comentarios/:/tmp/influx_comentarios/
+
+volumes:
+  data_influx:
